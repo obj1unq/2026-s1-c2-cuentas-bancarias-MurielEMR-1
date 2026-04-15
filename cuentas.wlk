@@ -36,3 +36,45 @@ object cuentaGasto{
         return fondoSaldo
     }
 }
+
+object cuentaCombinada{
+    var cuentaPrimaria = cuentaGasto
+    var cuentaSecundaria = cuentaCorriente
+
+    
+    method depositar(monto){
+        cuentaPrimaria = cuentaPrimaria + monto
+    }
+    method extraer (monto){
+        self.verificarFondos(monto)
+        if (cuentaPrimaria.fondoSaldo() < monto){
+            cuentaSecundaria.fondoSaldo(cuentaSecundaria.fondoSaldo() - (monto-cuentaPrimaria.fondoSaldo()))
+            cuentaPrimaria.fondoSaldo((cuentaPrimaria.fondoSaldo() - monto).max(0))
+        }else {
+            cuentaPrimaria.fondoSaldo(cuentaPrimaria.fondoSaldo() - monto)
+        }
+    }
+    method verificarFondos(monto){
+        if (cuentaPrimaria.fondoSaldo().max(0) + cuentaSecundaria.fondoSaldo().max(0) < monto){
+            self.error("Te lo digo explico con fichitas? Claramente no alcanza")
+        }
+
+    }
+    method cuentaPrimaria(_cuentaPrimaria){
+        cuentaPrimaria=_cuentaPrimaria
+    }
+    method cuentaSecundaria(_cuentaSecundaria){
+        cuentaSecundaria= _cuentaSecundaria
+    }
+    method cuentaPrimaria(){
+        return cuentaPrimaria
+    }
+    method cuentaSecundaria(){
+        return cuentaSecundaria
+    }
+
+}
+
+object cuentaAlfa{}
+
+object cuentaBeta{}
