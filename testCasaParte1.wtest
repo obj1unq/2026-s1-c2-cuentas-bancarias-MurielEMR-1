@@ -33,3 +33,31 @@ describe "casa de pepe y julian" {
     assert.equals(cuentaGasto , casa.cuentaBancaria())
     casa.depositar(10)
   }
+
+  test "comprobacion cuentaCombinada"{
+    casa.cuentaBancaria(cuentaCombinada)
+    assert.equals(cuentaCombinada,casa.cuentaBancaria())
+    cuentaGasto.fondoSaldo(0)
+    assert.equals(0, cuentaGasto.fondoSaldo())
+    cuentaCorriente.fondoSaldo(300)
+    assert.equals(300, cuentaCorriente.fondoSaldo())
+    casa.depositar(100)
+    assert.equals(380, cuentaCombinada.fondoSaldo())
+    assert.equals(80,cuentaGasto.fondoSaldo())
+    casa.extraccion(280)
+    assert.equals(280, casa.gastoMes())
+    assert.equals(100, cuentaCombinada.fondoSaldo())
+    assert.equals(0, cuentaGasto.fondoSaldo())
+    assert.equals(100,cuentaCorriente.fondoSaldo())
+    assert.throwsException({ cuentaCombinada.depositar(10) })
+    assert.throwsException({ casa.extraccion(1000) })
+    //cuentaCombinada.depositar(10)
+    //casa.extraccion(1000)
+
+
+
+
+
+
+
+  }

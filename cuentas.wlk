@@ -10,6 +10,9 @@ object cuentaCorriente{
     method fondoSaldo(){
         return fondoSaldo
     }
+    method fondoSaldo(_fondoSaldo){
+        fondoSaldo = _fondoSaldo
+    }
 }
 
 object cuentaGasto{
@@ -43,13 +46,13 @@ object cuentaCombinada{
 
     
     method depositar(monto){
-        cuentaPrimaria = cuentaPrimaria + monto
+        cuentaPrimaria.depositar(monto)
     }
     method extraer (monto){
         self.verificarFondos(monto)
         if (cuentaPrimaria.fondoSaldo() < monto){
-            cuentaSecundaria.fondoSaldo(cuentaSecundaria.fondoSaldo() - (monto-cuentaPrimaria.fondoSaldo()))
-            cuentaPrimaria.fondoSaldo((cuentaPrimaria.fondoSaldo() - monto).max(0))
+            cuentaSecundaria.extraer(monto-cuentaPrimaria.fondoSaldo())
+            cuentaPrimaria.extraer((cuentaPrimaria.fondoSaldo()))
         }else {
             cuentaPrimaria.fondoSaldo(cuentaPrimaria.fondoSaldo() - monto)
         }
@@ -71,6 +74,9 @@ object cuentaCombinada{
     }
     method cuentaSecundaria(){
         return cuentaSecundaria
+    }
+    method fondoSaldo(){
+        return cuentaPrimaria.fondoSaldo().max(0) + cuentaSecundaria.fondoSaldo().max(0)
     }
 
 }
