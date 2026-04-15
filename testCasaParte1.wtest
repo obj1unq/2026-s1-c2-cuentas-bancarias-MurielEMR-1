@@ -1,9 +1,83 @@
 import casa.*
+import cuentas.*
 
-describe "casa de pepe y julian" {
-
-  // Descomentar si hiciera falta un metodo para inicializar el ambiente
-  // method initialize() {
-  // }
-
+describe "casa de pepe y julian" { 
+  test "en casita"{
+  casa.depositar(300)
+  assert.equals(300, cuentaCorriente.fondoSaldo())
+  casa.extraccion(200)
+  assert.equals(100,cuentaCorriente.fondoSaldo())
+  assert.equals(200, casa.gastoMes())
+  casa.extraccion(400)
+  assert.equals (600, casa.gastoMes())
+  assert.equals(-300,cuentaCorriente.fondoSaldo())
+  casa.cambioMes()
+  }
 }
+
+  test "casa con gastos"{
+    casa.cuentaBancaria(cuentaGasto)
+    assert.equals(cuentaGasto , casa.cuentaBancaria())
+    casa.depositar(1000)
+    assert.equals (980,cuentaGasto.fondoSaldo())
+    casa.extraccion(580)
+    assert.equals(400,cuentaGasto.fondoSaldo())
+    casa.extraccion(500)
+    assert.equals(-100,cuentaGasto.fondoSaldo())
+    casa.depositar(150)
+    assert.equals(30,cuentaGasto.fondoSaldo())
+  }
+
+  test "error excepcional"{
+    casa.cuentaBancaria(cuentaGasto)
+    assert.equals(cuentaGasto , casa.cuentaBancaria())
+    casa.depositar(10)
+  }
+
+  test "comprobacion cuentaCombinada"{
+    casa.cuentaBancaria(cuentaCombinada)
+    assert.equals(cuentaCombinada,casa.cuentaBancaria())
+    cuentaGasto.fondoSaldo(0)
+    assert.equals(0, cuentaGasto.fondoSaldo())
+    cuentaCorriente.fondoSaldo(300)
+    assert.equals(300, cuentaCorriente.fondoSaldo())
+    casa.depositar(100)
+    assert.equals(380, cuentaCombinada.fondoSaldo())
+    assert.equals(80,cuentaGasto.fondoSaldo())
+    casa.extraccion(280)
+    assert.equals(280, casa.gastoMes())
+    assert.equals(100, cuentaCombinada.fondoSaldo())
+    assert.equals(0, cuentaGasto.fondoSaldo())
+    assert.equals(100,cuentaCorriente.fondoSaldo())
+    assert.throwsException({ cuentaCombinada.depositar(10) })
+    assert.throwsException({ casa.extraccion(1000) })
+    //cuentaCombinada.depositar(10)
+    //casa.extraccion(1000)
+
+  
+  }
+  describe "Reparaciones y viveres "{
+    test "propertys"{
+    casa.gastoReparaciones(1000)
+    assert.equals(1000, casa.gastoReparaciones())
+   }
+  }
+    test "comprar viveres"{
+      casa.comprarViveres(10, 2)
+      assert.equals(20, casa.cantidadDeViveres())
+    }
+
+    test "tiene viveres suficientes"{
+      casa.cantidadDeViveres(50)
+      assert.equals(value, expression)
+    }
+
+    test "romper algo y aumentar el monto de reparacion"{
+      casa.gastoReparaciones(1000)
+      assert.equals(1000, casa.gastoReparaciones())
+    }
+
+    test "verificacion de casa"{
+      assert.equals(false, casa.tieneViveresSuficientes())
+      assert.equals()
+    }
