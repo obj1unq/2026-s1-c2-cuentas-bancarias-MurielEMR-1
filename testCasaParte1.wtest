@@ -54,10 +54,30 @@ describe "casa de pepe y julian" {
     //cuentaCombinada.depositar(10)
     //casa.extraccion(1000)
 
-
-
-
-
-
-
+  
   }
+  describe "Reparaciones y viveres "{
+    test "propertys"{
+    casa.gastoReparaciones(1000)
+    assert.equals(1000, casa.gastoReparaciones())
+   }
+  }
+    test "comprar viveres"{
+      casa.comprarViveres(10, 2)
+      assert.equals(20, casa.cantidadDeViveres())
+    }
+
+    test "tiene viveres suficientes"{
+      casa.cantidadDeViveres(50)
+      assert.equals(value, expression)
+    }
+
+    test "romper algo y aumentar el monto de reparacion"{
+      casa.gastoReparaciones(1000)
+      assert.equals(1000, casa.gastoReparaciones())
+    }
+
+    test "verificacion de casa"{
+      assert.equals(false, casa.tieneViveresSuficientes())
+      assert.equals()
+    }

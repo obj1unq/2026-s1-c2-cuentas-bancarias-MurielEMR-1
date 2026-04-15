@@ -1,6 +1,6 @@
 import casa.*
 object cuentaCorriente{
-    var fondoSaldo = 0
+    var fondoSaldo = 2000
     method depositar(monto){
         fondoSaldo = fondoSaldo + monto
     }
